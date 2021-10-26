@@ -7,4 +7,4 @@ RUN npm install \
 
 EXPOSE 3000
 
-ENTRYPOINT npn run start
+ENTRYPOINT npm run start
