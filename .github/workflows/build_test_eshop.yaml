@@ -58,7 +58,7 @@ jobs:
 
   # Test application
   Test:
-    needs: Build
+    needs: Install
     runs-on: ubuntu-latest
 
     steps:
