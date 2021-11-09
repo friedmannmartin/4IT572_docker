@@ -95,7 +95,7 @@ jobs:
 
   # Deploy
   Deploy:
-    needs: [Built,Test]
+    needs: [Build,Test]
     runs-on: ubuntu-latest
     if: #{{ github.ref == 'refs/heads/master' }}
 
