@@ -2,6 +2,7 @@ name: Build and tests our Eshop
 
 on:
   workflow_dispatch:
+  #pokus
   push:
     branches:
       - master
