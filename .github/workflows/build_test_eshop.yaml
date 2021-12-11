@@ -101,7 +101,7 @@ jobs:
           npm run test -- --colors
 
   # Deploy
-  Deploy to EC2:
+  DeployToFirease:
     needs: [Build,Test]
     runs-on: ubuntu-latest
     if: #{{ github.ref == 'refs/heads/master' }}
