@@ -23,7 +23,7 @@ jobs:
           chmod 400 ./ansible/devops.pem
 
       - name: Run Ansible playbook
-        run:
-          environment:
-            ANSIBLE_HOST_KEY_CHECKING: False
-          command: ansible-playbook ./ansible/ec2_deploy.yml --user ec2-user --key-file ./ansible/devops.pem
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
+        run: |
+          ansible-playbook ./ansible/ec2_deploy.yml --user ec2-user --key-file ./ansible/devops.pem
