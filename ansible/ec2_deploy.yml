@@ -8,7 +8,7 @@
         region: us-east-1
         filters:
           instance-type: t2.small
-        aws_access_key: ASIAQ55RRQP4Q7ENTI7R
+        aws_access_key: {{aws_access_key}}
         aws_secret_key: cgRUJfdQAcWPDzQiiNPwSsAjWH7gPY1p5ipOgbT2
         security_token: FwoGZXIvYXdzEF4aDMj9+a6D4kfCp86m0iK3AfxCA5R7mGhIFjk03sGiFm+kBYRpvy1rOgea9+0R4Z4/m8Wu984GkBqm93glrwFDcXGQIg90Efqs5JAKNj9VGeAvaGlEclvoYBd307NIEMjd+v1ZMFgJ8eSgK+ywaeDbhHCGqW8QQbP6l9J1O27jjRiznStn9NtaAkNMQNmMDioI/tHn1xHI9z/hMC//PlUJ9uFoO1WvYMQe4jd1X452ZFEaW12uJ3dOG/hSLvcNCE6eUBxi73l4SCjFwNmNBjItDkrxseGNy5hSB0vgsUk3rB+/4hiXGynjj6NuQpnh/TR6QxODuGFKJswL/IPO
       register: ec2_stat

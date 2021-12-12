@@ -17,17 +17,16 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
 
-      - name: Prepare Ansible Vault
-        run: |
-          printf 'aws_access_key: ${{ secrets.ACCESS_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
-          printf 'aws_secret_key: ${{ secrets.SECRET_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
-          printf 'security_token: ${{ secrets.SESSION_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
-          cat ./ansible/group_vars/all/aws.yml
-
       - name: Instal Ansible
         run: |
           pip3 install boto boto3 ansible
           chmod 400 ./ansible/devops.pem
+
+      - name: Prepare Ansible Group Vars
+        run: |
+          printf 'aws_access_key: ${{ secrets.ACCESS_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
+          printf 'aws_secret_key: ${{ secrets.SECRET_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
+          printf 'security_token: ${{ secrets.SESSION_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
 
       - name: Run Ansible playbook
         env:
