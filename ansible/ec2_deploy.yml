@@ -9,14 +9,14 @@
         image: ami-04902260ca3d33422
         region: us-east-1
         key_name: devops
-        vpc_subnet_id: subnet-01a37e894a53af447
+        vpc_subnet_id: subnet-0f41b77213f2322d1
         assign_public_ip: yes
         count: 1
         group: eshop
         wait: true
-        aws_access_key: ${{ secrets.ACCESS_KEY }}
-        aws_secret_key: ${{ secrets.SECRET_KEY }}
-        security_token: ${{ secrets.SESSION_KEY }}
+        aws_access_key: ASIAQ55RRQP4UDF5JIRI
+        aws_secret_key: z/NIYl/OpGATfbrGgn1MAkTkVongJG70L164jfbI
+        security_token: FwoGZXIvYXdzEFsaDOpaW/yYWYYolyul5SK3AYU28dmm0zAah7Z+RM6RZ4xc0ATW6PJU/FDGhJ+r2qtnPxnPHHKQYSkUq6R9jxcNzA7eZwrfzZjtQkrlr1wgdUWMdfbxxS8iF3POI2Czt1I4Ibu+6LvijfNrIGRBEOtPVjr088W88RcLJ9gnJgWfjdP2MeLLSa93gPbb9RDrCky5GaoU4kO1U985/MVkYl8wdua0oDlGXQWJUs/qGio0WylmxaS2X6Ah+jRRxnGkwgKjt4ZZXm1DYCiM6NiNBjIt9PlH0Je9stj+KleVMyKQFBHG48G0fn00MCsngMra30UErTDl0JGQkOX8kruv
       register: ec2
 
     - name: Add new instance to host group
