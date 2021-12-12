@@ -9,7 +9,7 @@ on:
 jobs:
   #Deploy our Eshop to new AWS EC2 instance
   DeployToEC2:
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
 
     steps:
       - name: Git Checkout
@@ -22,4 +22,6 @@ jobs:
         with:
           playbook: ec2_deploy.yml
           directory: ./ansible
-          vault_password: ${{secrets.VAULT_PASSWORD}}
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          options: |
+            --user ec2-user
