@@ -21,4 +21,6 @@ jobs:
         run: pip3 install boto boto3 ansible
 
       - name: Run Ansible playbook
-        run: ansible-playbook ./ansible/ec2_deploy.yml --user ec2-user --key-file ./ansible/devops.pem
+        run: |
+          chmod 400 ./ansible/devops.pem
+          ansible-playbook ./ansible/ec2_deploy.yml --user ec2-user --key-file ./ansible/devops.pem
