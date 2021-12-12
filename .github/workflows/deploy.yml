@@ -27,8 +27,8 @@ jobs:
           printf 'aws_secret_key: ${{ secrets.SECRET_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
           printf 'security_token: ${{ secrets.SESSION_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
           touch ./ansible/devops.pem
-          chmod 400 ./ansible/devops.pem
           printf '${{ secrets.SSH_PRIVATE_KEY }}' >> ./ansible/devops.pem
+          chmod 400 ./ansible/devops.pem
 
       - name: Run Ansible playbook
         env:
