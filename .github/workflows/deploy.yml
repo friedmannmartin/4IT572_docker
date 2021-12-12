@@ -17,11 +17,7 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
 
-      - name: Run Ansible playbook
-        uses: dawidd6/action-ansible-playbook@v2.5.0
-        with:
-          playbook: ec2_deploy.yml
-          directory: ./ansible
-          key: ${{secrets.SSH_PRIVATE_KEY}}
-          options: |
-            --user ec2-user
+      - name: Instal Ansible
+        run: pip3 install boto boto3 ansible
+
+      - name: ansible-playbook ec2_deploy.yml --user ec2-user --key-file ./devops.pem
