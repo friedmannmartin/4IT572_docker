@@ -3,6 +3,15 @@
   connection: local
 
   tasks:
+    - name: Identify running instances for termination
+      ec2_instance_info:
+        region: us-east-1
+        group: eshop
+        aws_access_key: ASIAQ55RRQP4Q7ENTI7R
+        aws_secret_key: cgRUJfdQAcWPDzQiiNPwSsAjWH7gPY1p5ipOgbT2
+        security_token: FwoGZXIvYXdzEF4aDMj9+a6D4kfCp86m0iK3AfxCA5R7mGhIFjk03sGiFm+kBYRpvy1rOgea9+0R4Z4/m8Wu984GkBqm93glrwFDcXGQIg90Efqs5JAKNj9VGeAvaGlEclvoYBd307NIEMjd+v1ZMFgJ8eSgK+ywaeDbhHCGqW8QQbP6l9J1O27jjRiznStn9NtaAkNMQNmMDioI/tHn1xHI9z/hMC//PlUJ9uFoO1WvYMQe4jd1X452ZFEaW12uJ3dOG/hSLvcNCE6eUBxi73l4SCjFwNmNBjItDkrxseGNy5hSB0vgsUk3rB+/4hiXGynjj6NuQpnh/TR6QxODuGFKJswL/IPO
+      register: ec2_stat
+
     - name: Launch EC2 instance
       amazon.aws.ec2:
         instance_type: t2.small
@@ -14,9 +23,9 @@
         count: 1
         group: eshop
         wait: true
-        aws_access_key: ASIAQ55RRQP4UDF5JIRI
-        aws_secret_key: z/NIYl/OpGATfbrGgn1MAkTkVongJG70L164jfbI
-        security_token: FwoGZXIvYXdzEFsaDOpaW/yYWYYolyul5SK3AYU28dmm0zAah7Z+RM6RZ4xc0ATW6PJU/FDGhJ+r2qtnPxnPHHKQYSkUq6R9jxcNzA7eZwrfzZjtQkrlr1wgdUWMdfbxxS8iF3POI2Czt1I4Ibu+6LvijfNrIGRBEOtPVjr088W88RcLJ9gnJgWfjdP2MeLLSa93gPbb9RDrCky5GaoU4kO1U985/MVkYl8wdua0oDlGXQWJUs/qGio0WylmxaS2X6Ah+jRRxnGkwgKjt4ZZXm1DYCiM6NiNBjIt9PlH0Je9stj+KleVMyKQFBHG48G0fn00MCsngMra30UErTDl0JGQkOX8kruv
+        aws_access_key: ASIAQ55RRQP4Q7ENTI7R
+        aws_secret_key: cgRUJfdQAcWPDzQiiNPwSsAjWH7gPY1p5ipOgbT2
+        security_token: FwoGZXIvYXdzEF4aDMj9+a6D4kfCp86m0iK3AfxCA5R7mGhIFjk03sGiFm+kBYRpvy1rOgea9+0R4Z4/m8Wu984GkBqm93glrwFDcXGQIg90Efqs5JAKNj9VGeAvaGlEclvoYBd307NIEMjd+v1ZMFgJ8eSgK+ywaeDbhHCGqW8QQbP6l9J1O27jjRiznStn9NtaAkNMQNmMDioI/tHn1xHI9z/hMC//PlUJ9uFoO1WvYMQe4jd1X452ZFEaW12uJ3dOG/hSLvcNCE6eUBxi73l4SCjFwNmNBjItDkrxseGNy5hSB0vgsUk3rB+/4hiXGynjj6NuQpnh/TR6QxODuGFKJswL/IPO
       register: ec2
 
     - name: Add new instance to host group
@@ -73,3 +82,20 @@
       become: yes
     - wait_for:
         port: 80
+
+- name: Terminate instances
+  hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Terminate running instances
+    ec2:
+      region: us-east-1
+      state: absent
+        aws_access_key: ASIAQ55RRQP4Q7ENTI7R
+        aws_secret_key: cgRUJfdQAcWPDzQiiNPwSsAjWH7gPY1p5ipOgbT2
+        security_token: FwoGZXIvYXdzEF4aDMj9+a6D4kfCp86m0iK3AfxCA5R7mGhIFjk03sGiFm+kBYRpvy1rOgea9+0R4Z4/m8Wu984GkBqm93glrwFDcXGQIg90Efqs5JAKNj9VGeAvaGlEclvoYBd307NIEMjd+v1ZMFgJ8eSgK+ywaeDbhHCGqW8QQbP6l9J1O27jjRiznStn9NtaAkNMQNmMDioI/tHn1xHI9z/hMC//PlUJ9uFoO1WvYMQe4jd1X452ZFEaW12uJ3dOG/hSLvcNCE6eUBxi73l4SCjFwNmNBjItDkrxseGNy5hSB0vgsUk3rB+/4hiXGynjj6NuQpnh/TR6QxODuGFKJswL/IPO
+      instance_ids: '{{ item.instance_id }}'
+    loop: "{{ ec2_stat.instances }}"
+    loop_control:
+      label: "{{ item.instance_id }}"
