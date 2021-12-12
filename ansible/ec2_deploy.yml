@@ -94,8 +94,8 @@
       region: us-east-1
       state: absent
       aws_access_key: "{{aws_access_key}}"
-        aws_secret_key: "{{aws_secret_key}}"
-        security_token: "{{security_token}}"
+      aws_secret_key: "{{aws_secret_key}}"
+      security_token: "{{security_token}}"
       instance_ids: '{{ item.instance_id }}'
     loop: "{{ ec2_stat.instances }}"
     loop_control:
