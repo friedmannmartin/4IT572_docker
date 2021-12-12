@@ -90,7 +90,7 @@
 
   tasks:
   - name: Terminate running instances
-    ec2:
+    amazon.aws.ec2:
       region: us-east-1
       state: absent
       aws_access_key: ASIAQ55RRQP4Q7ENTI7R
