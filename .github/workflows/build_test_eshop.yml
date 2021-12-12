@@ -2,10 +2,6 @@ name: Build and tests our Eshop
 
 on:
   workflow_dispatch:
-  #pokus
-  push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
@@ -100,7 +96,7 @@ jobs:
         run: |
           npm run test -- --colors
 
-  # Deploy
+  # Deploy to Firebase
   DeployToFirease:
     needs: [Build,Test]
     runs-on: ubuntu-latest

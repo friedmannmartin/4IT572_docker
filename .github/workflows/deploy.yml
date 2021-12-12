@@ -1,0 +1,25 @@
+name: Deploy our Eshop to EC2 via Ansible
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  #Deploy our Eshop to new AWS EC2 instance
+  DeployToEC2:
+    runs-on: ubuntu-lates
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          token: ${{ secrets.WORKFLOW_TOKEN }}
+
+      - name: Run Ansible playbook
+        uses: dawidd6/action-ansible-playbook@v2.5.0
+        with:
+          playbook: ec2_deploy.yml
+          directory: ./ansible
+          vault_password: ${{secrets.VAULT_PASSWORD}}
