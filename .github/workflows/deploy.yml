@@ -18,9 +18,12 @@ jobs:
           token: ${{ secrets.WORKFLOW_TOKEN }}
 
       - name: Instal Ansible
-        run: pip3 install boto boto3 ansible
+        run: |
+          pip3 install boto boto3 ansible
+          chmod 400 ./ansible/devops.pem
 
       - name: Run Ansible playbook
-        run: |
-          chmod 400 ./ansible/devops.pem
-          ansible-playbook ./ansible/ec2_deploy.yml --user ec2-user --key-file ./ansible/devops.pem
+        run:
+          environment:
+            ANSIBLE_HOST_KEY_CHECKING: False
+          command: ansible-playbook ./ansible/ec2_deploy.yml --user ec2-user --key-file ./ansible/devops.pem
