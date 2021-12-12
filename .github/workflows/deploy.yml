@@ -20,14 +20,14 @@ jobs:
       - name: Prepare SSH Private key
         run: |
           touch ./ansible/devops.pem
-          printf '${{ secrets.SSH_PRIVATE_KEY }}' >> ./ansible/devops.pem
+          echo '${{ secrets.SSH_PRIVATE_KEY }}' >> ./ansible/devops.pem
           chmod 400 ./ansible/devops.pem
 
-      - name: Instal Ansible
+      - name: Install Ansible
         run: |
           pip3 install boto boto3 ansible
 
-      - name: Prepare Ansible Group Vars and SSH Private key
+      - name: Prepare Ansible Group Vars
         run: |
           printf 'aws_access_key: ${{ secrets.ACCESS_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
           printf 'aws_secret_key: ${{ secrets.SECRET_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
