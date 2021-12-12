@@ -20,7 +20,18 @@ jobs:
       - name: Instal Ansible
         run: pip3 install boto boto3 ansible
 
+      - name: Prepare private key
+        run: |
+          echo ${{ secrets.SSH_PRIVATE_KEY }} > ./ansible/devops.pem
+          chmod 400 ./ansible/devops.pem
+
+      - name: Create Ansible vars
+        run: |
+          echo 'aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
+          echo 'aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
+          echo 'security_token: ${{ secrets.SECURITY_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
+
+
       - name: Run Ansible playbook
         run: |
-          chmod 400 ./ansible/devops.pem
           ansible-playbook ./ansible/ec2_deploy.yml --user ec2-user --key-file ./ansible/devops.pem
