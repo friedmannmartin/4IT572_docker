@@ -1,4 +1,4 @@
-name: Deploy our Eshop to EC2 via Ansible
+name: Deploy our Eshop
 
 on:
   workflow_dispatch:
