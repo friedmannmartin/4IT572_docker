@@ -35,7 +35,6 @@
       amazon.aws.ec2_group:
         region: us-east-1
         name: eshop
-        state: present 
         description: Security group for our eshop
         vpc_id: "{{ec2_vpc_subnet.subnets[0].vpc_id}}"
         rules:
@@ -51,6 +50,8 @@
         aws_secret_key: "{{aws_secret_key}}"
         security_token: "{{security_token}}"
       when: ec2_security_group is undefined
+      wait_for:
+        state: present
 
     - name: Launch EC2 instance
       amazon.aws.ec2:
