@@ -13,13 +13,22 @@
         security_token: "{{security_token}}"
       register: ec2_stat
 
+  tasks:
+    - name: Identify existing VPC subnets
+      amazon.aws.ec2_vpc_subnet_info:
+        region: us-east-1
+        aws_access_key: "{{aws_access_key}}"
+        aws_secret_key: "{{aws_secret_key}}"
+        security_token: "{{security_token}}"
+      register: ec2_vpc_subnet
+
     - name: Launch EC2 instance
       amazon.aws.ec2:
         instance_type: t2.small
         image: ami-04902260ca3d33422
         region: us-east-1
         key_name: devops
-        vpc_subnet_id: subnet-0eec369f8dccaedd9
+        vpc_subnet_id: "{{ ec2_vpc_subnet.subnets.subnet_id }}"
         assign_public_ip: yes
         count: 1
         group: eshop
