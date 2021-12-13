@@ -1,6 +1,7 @@
 - name: Deploy to EC2
   hosts: localhost
   connection: local
+  #final_test
 
   tasks:
     - name: Identify running instances for termination
