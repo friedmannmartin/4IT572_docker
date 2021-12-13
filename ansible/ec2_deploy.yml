@@ -12,6 +12,7 @@
         aws_secret_key: "{{aws_secret_key}}"
         security_token: "{{security_token}}"
       register: ec2_stat
+      debugger: always
 
   tasks:
     - name: Identify existing VPC subnets
