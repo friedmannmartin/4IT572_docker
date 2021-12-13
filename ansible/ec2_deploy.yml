@@ -49,7 +49,7 @@
         aws_access_key: "{{aws_access_key}}"
         aws_secret_key: "{{aws_secret_key}}"
         security_token: "{{security_token}}"
-      when: ec2_security_group.stdout == ""
+      when: ec2_security_group is undefined
 
     - name: Launch EC2 instance
       amazon.aws.ec2:
