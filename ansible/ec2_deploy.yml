@@ -12,7 +12,7 @@
         aws_secret_key: "{{aws_secret_key}}"
         security_token: "{{security_token}}"
       register: ec2_stat
-    #pokus
+      
     - name: Identify existing VPC subnets
       amazon.aws.ec2_vpc_subnet_info:
         region: us-east-1
@@ -25,7 +25,7 @@
       amazon.aws.ec2_group_info:
         region: us-east-1
         filters:
-          group-name: eshop
+          name: eshop
         aws_access_key: "{{aws_access_key}}"
         aws_secret_key: "{{aws_secret_key}}"
         security_token: "{{security_token}}"
