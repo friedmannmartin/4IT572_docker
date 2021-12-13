@@ -31,6 +31,26 @@
         security_token: "{{security_token}}"
       register: ec2_security_group
 
+    - name: Add eshop seucurity group if not exists
+      amazon.aws.ec2_group:
+        region: us-east-1
+        name: eshop
+        description: Security group for our eshop
+        vpc_id: "{{ec2_vpc_subnet.subnets[0].vpc_id}}"
+        rules:
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 0.0.0.0/0
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: 0.0.0.0/0
+        aws_access_key: "{{aws_access_key}}"
+        aws_secret_key: "{{aws_secret_key}}"
+        security_token: "{{security_token}}"
+        when: ec2_security_group.stdout == ""
+
     - name: Launch EC2 instance
       amazon.aws.ec2:
         instance_type: t2.small
