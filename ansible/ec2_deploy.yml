@@ -12,9 +12,7 @@
         aws_secret_key: "{{aws_secret_key}}"
         security_token: "{{security_token}}"
       register: ec2_stat
-      debugger: always
 
-  tasks:
     - name: Identify existing VPC subnets
       amazon.aws.ec2_vpc_subnet_info:
         region: us-east-1
@@ -110,4 +108,3 @@
     loop: "{{ ec2_stat.instances }}"
     loop_control:
       label: "{{ item.instance_id }}"
-    when: ec2_stat is defined
